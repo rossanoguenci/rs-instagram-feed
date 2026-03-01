@@ -1,0 +1,30 @@
+{
+    "$schema": "https://advancedcustomfields.com/schemas/json/main/block.json",
+    "apiVersion": 2,
+    "name": "instagram-feed",
+    "title": "Instagram Feed",
+    "category": "reactsmith-blocks",
+    "icon": "columns",
+    "keywords": [],
+    "acf": {
+        "mode": "auto",
+        "renderCallback": "\\ReactSmith\\InstagramFeed\\Core\\Component::acf_render_callback",
+        "postTypes": [
+            "page",
+            "reactsmith-template"
+        ]
+    },
+    "supports": {
+        "anchor": true,
+        "color": {
+            "text": false
+        },
+        "mode": false
+    },
+    "attributes": {
+        "align": {
+            "type": "string",
+            "default": "full"
+        }
+    }
+}

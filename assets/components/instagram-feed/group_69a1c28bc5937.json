@@ -1,0 +1,58 @@
+{
+    "key": "group_69a1c28bc5937",
+    "title": "Block - Instagram Feed - Feed",
+    "fields": [
+        {
+            "key": "field_69a1c28ccb635",
+            "label": "Maximum number of posts",
+            "name": "max_posts_number",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "1": "1",
+                "3": "3",
+                "6": "6",
+                "9": "9",
+                "-1": "All"
+            },
+            "default_value": 6,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/instagram-feed"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "reactsmith_save_location": 0,
+    "modified": 1772208903
+}

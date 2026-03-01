@@ -1,0 +1,53 @@
+name: Build and Release Archive
+
+on:
+  push:
+    tags:
+      - 'v*' # Triggers whenever a tag starting with 'v' is pushed (e.g., v1.0.0)
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.1
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3' # Adjust to your required version
+
+      - name: Install Production Dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      # - name: Setup Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '20'
+      # - name: Install and Build Assets
+      #   run: |
+      #     pnpm install
+      #     pnpm run build
+
+      - name: Create Compiled Archive
+        run: |
+          # Define plugin folder name
+          PLUGIN_SLUG="rs-instagram-feed"
+          
+          # 1. Create a temporary build directory
+          mkdir -p build/${PLUGIN_SLUG}
+          
+          # 2. Use rsync to copy files while respecting .deployignore
+          # The --exclude-from flag is the key to using your .deployignore file
+          rsync -av . build/${PLUGIN_SLUG} --exclude-from='.deployignore'
+          
+          # 3. Zip the folder
+          cd build
+          zip -r ../${PLUGIN_SLUG}.zip ${PLUGIN_SLUG}
+
+      - name: Upload Archive to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: rs-instagram-feed.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
