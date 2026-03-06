@@ -7,10 +7,10 @@ A robust and secure WordPress plugin to retrieve and display Instagram posts, sp
 ## Features
 
 - **Secure OAuth Integration**: Connect your Instagram Business account easily using the Meta Graph API.
-- **Automated Synchronization**: Hourly cron jobs to keep your feed up-to-date automatically.
+- **Automated Synchronisation**: Hourly cron jobs to keep your feed up to date automatically.
 - **Credential Encryption**: API secrets are encrypted using AES-256-CBC with a key defined in your `wp-config.php`.
 - **Theme-Integrated Components**: Seamless integration with the ReactSmith theme's component architecture.
-- **Performance Optimized**: Weekly automated cleanup of old posts to maintain a lean database.
+- **Performance Optimised**: Weekly automated clean-up of old posts to maintain a lean database.
 - **Onboarding Workflow**: Streamlined setup process for easy configuration.
 
 ## Requirements
@@ -38,7 +38,7 @@ define('RS_SECRET_ENCRYPTION_KEY', 'your-random-high-entropy-string-here');
 1. Navigate to **Instagram Feed** in the WordPress admin menu.
 2. If you haven't set the `RS_SECRET_ENCRYPTION_KEY`, you will be prompted with instructions on how to do so.
 3. Go to **Account Connection** and enter your **Meta App ID** and **Meta App Secret**.
-4. Click **Connect with Meta** to authorize your Instagram Business account.
+4. Click **Connect with Meta** to authorise your Instagram Business account.
 5. Once connected, you can configure the maximum number of posts and sync settings in the **Settings** tab.
 
 ## Development
