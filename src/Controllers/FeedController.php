@@ -75,17 +75,49 @@ class FeedController extends AbstractAdminController {
             }
 
         }
+
+        // 4. Insert featured image
+        if (!\has_post_thumbnail($post_id)) {
+            require_once ABSPATH . 'wp-admin/includes/media.php';
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+            require_once ABSPATH . 'wp-admin/includes/image.php';
+
+            $image_url =
+                $ig_post['media_type'] === 'VIDEO' ?
+                ($ig_post['thumbnail_url'] ?? '') :
+                ($ig_post['media_url'] ?? '')
+            ;
+
+            if (!empty($image_url)) {
+                $attachment_id = \media_sideload_image($image_url, $post_id, null, 'id');
+
+                if (\is_wp_error($attachment_id)) {
+                    $message = 'Error FeedController - upsert_post() - $attachment_id -> ' . $attachment_id->get_error_message();
+                    Debug::log($message);
+                    return;
+                }
+
+                \set_post_thumbnail($post_id, $attachment_id);
+            }
+        }
+
     }
 
     /**
-     * Deletes a post from the WordPress database.
+     * Deletes a post and its featured image from the WordPress database.
      *
      * @param int $post_id The ID of the post to delete.
      * @param bool $force_delete Whether to bypass the trash and force deletion.
      * @return bool True on success, false on failure.
      */
-    private static function delete_post(int $post_id, bool $force_delete = false ): bool{
+    private static function delete_post(int $post_id, bool $force_delete = false ): bool {
         if(empty($post_id)) return false;
+
+        $attachment_id = \get_post_thumbnail_id($post_id);
+
+        if ($attachment_id) {
+            \wp_delete_attachment($attachment_id, $force_delete);
+        }
 
         $del_flag = \wp_delete_post($post_id, $force_delete);
 
@@ -97,7 +129,7 @@ class FeedController extends AbstractAdminController {
      *
      * @return void
      */
-    public static function dropFeed(){
+    public static function dropFeed(): void {
         $posts = \get_posts([
             'post_type'   => Config::POST_TYPE,
             'numberposts' => -1,

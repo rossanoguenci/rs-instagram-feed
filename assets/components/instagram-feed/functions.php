@@ -37,7 +37,10 @@ function filter_args(array $args): ?array
     ]);
 
     foreach ($posts as $post) {
-        $image_url = \get_field('thumbnail_url', $post->ID) ?: \get_field('media_url', $post->ID);
+        $image_url = \get_the_post_thumbnail_url($post->ID, 'large');
+
+        if(!$image_url) continue;
+
         $permalink = \get_field('permalink', $post->ID);
 
         $args['stack'][] = [

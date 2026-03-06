@@ -66,6 +66,7 @@
     "plural_capability_name": "posts",
     "supports": [
         "revisions",
+        "thumbnail",
         "custom-fields"
     ],
     "taxonomies": "",
